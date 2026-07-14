@@ -1,0 +1,28 @@
+Step 1: Repo Creation
+
+https://github.com/mohansivaraman7/uptor_002_ai_ml_api
+Pre-requisite: Ensure that you installed github in your laptop
+    Link : https://git-scm.com/install/windows
+    Instructions : Install with all default settings.
+
+Step 2: Pushing my project into new branch in that Repo
+   2.1 Enter into the Folder where you have your project
+   2.2 After entering into initialize the git for communication
+                 git init
+   2.3 Add Files for the remote git
+              git add .
+   2.4 Commit the Files (saving to staging)
+              git commit -m "my first project in git"
+   2.5 Create Branch for the files to store
+            git branch -M Master
+   2.6 create a path to the origin
+            git remote add origin https://github.com/mohansivaraman7/uptor_002_ai_ml_api.git
+       2.6.1 It may ask you to add mail and username for firstname
+             so add yourmail and yourusername
+   2.7 git push -r origin Master
+        2.7.1 set as upstream
+
+
+
+
+
