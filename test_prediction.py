@@ -1,9 +1,9 @@
 import requests
 
-url = "http://127.0.0.1:5000/predict"
+url = "https://house-model-api.onrender.com/predict" # site is deployed in render.com
 
 data = {
-    "size": 1700
+    "size": 2000
 }
 
 response = requests.post(url, json=data)
