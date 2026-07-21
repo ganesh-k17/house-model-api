@@ -1,0 +1,12 @@
+## REST CLIENT TESTING for the render.com deployment of the house price prediction model
+
+GET https://house-model-api.onrender.com/ HTTP/1.1
+
+###
+
+POST https://house-model-api.onrender.com/predict HTTP/1.1
+Content-Type: application/json
+{
+    "size": 2000
+}
+
