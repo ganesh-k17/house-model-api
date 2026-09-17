@@ -3,6 +3,7 @@ pipeline {
 
     environment {
         VENV_DIR = 'venv'
+        API_PORT = '5001'
     }
 
     options {
@@ -43,13 +44,13 @@ pipeline {
                 sh '''
                     . ${VENV_DIR}/bin/activate
 
-                    nohup python app.py > app.log 2>&1 &
+                    PORT=${API_PORT} FLASK_DEBUG=0 nohup python app.py > app.log 2>&1 &
                     echo $! > app.pid
 
                     echo "Waiting for API to become ready..."
                     ready=0
                     for i in $(seq 1 30); do
-                        if curl -s -o /dev/null http://127.0.0.1:5000/; then
+                        if curl -s -o /dev/null http://127.0.0.1:${API_PORT}/; then
                             ready=1
                             echo "API is up"
                             break
@@ -63,7 +64,7 @@ pipeline {
                         exit 1
                     fi
 
-                    python test_prediction.py
+                    API_URL=http://127.0.0.1:${API_PORT}/predict python test_prediction.py
                 '''
             }
         }
@@ -76,9 +77,6 @@ pipeline {
                     kill "$(cat app.pid)" 2>/dev/null || true
                     rm -f app.pid
                 fi
-                # Flask's debug-mode reloader forks a child process; make sure
-                # nothing is left listening on the API port.
-                fuser -k 5000/tcp 2>/dev/null || true
             '''
             archiveArtifacts artifacts: 'house_model.pkl, app.log', allowEmptyArchive: true
         }
